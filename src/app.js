@@ -15,7 +15,7 @@ const gamesRoutes = require('./routes/games');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', indexRoutes);
-app.use('/games', gamesRoutes);
+app.use('/ap1/v1', indexRoutes);
+app.use('/api/v1/servico', gamesRoutes);
 
 module.exports = app;

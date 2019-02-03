@@ -18,12 +18,24 @@ const schema = new Schema({
         trim: true,
         index: true,
     },
-    console_nome:{
+    console_name:{
         type: String,
         required: true,
         trim: true,
         index: true,
     }
 });
+
+schema.set('toJSON', {
+    transform : (doc, result) => {
+      return {
+        id : result._id,
+        name : result.name,
+        console_id: result.console_id,
+        console_name: result.console_name
+      };
+    }
+});
+
 
 module.exports = mongoose.model('Game', schema);
