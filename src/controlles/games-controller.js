@@ -8,27 +8,21 @@ const Videogame = mongoose.model('Videogame');
 exports.get = async (req, res, next) => {
     let videogame = []
     try {
-        await Videogame.find({}, 'name company', (err, video) => {
-            video = video.map(function (p) {
-                return p.toAliasedFieldsObject();
-            });
-            videogame = video
-        })
+        videogame = await Videogame.find({})
         res.status(200).send({ success: "true", data: videogame })
-    } catch (error) { res.status(200).send(error) }
+    } catch (error) { res.status(200).send({ message: error }) }
 }
 
-exports.post = (req, res, next) => {
-
+exports.post = async (req, res, next) => {
     try {
         const videogame = new Videogame();
         videogame.name = req.body.name
         videogame.company = req.body.company
         videogame.games = []
-        videogame.save();
+        await videogame.save();
         console.log(videogame);
         res.status(201).send({ success: "true", data: videogame });
     } catch (e) {
-        res.status(201).send({ success: "false" });
+        res.status(201).send({ success: e });
     }
 }

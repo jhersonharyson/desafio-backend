@@ -6,10 +6,7 @@ const Schema = mogoose.Schema;
 const Game = require('./game')
 
 const schema = new Schema({
-    _id:{
-        type: mogoose.Schema.ObjectId,
-        alias: 'id'
-    },
+
     name: {
         type: String,
         required: true,
@@ -29,7 +26,18 @@ const schema = new Schema({
 
 });
 
-schema.plugin(fieldsAliasPlugin);
+schema.set('toJSON', {
+    transform : (doc, result) => {
+      return {
+        id : result._id,
+        name : result.name,
+        company: result.company
+      };
+    }
+  });
+
+
+
 
 
 module.exports = mogoose.model('Videogame', schema);
