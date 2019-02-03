@@ -1,7 +1,6 @@
 'use strict';
 
 const mogoose = require('mongoose');
-const fieldsAliasPlugin = require('mongoose-aliasfield');
 const Schema = mogoose.Schema;
 const Game = require('./game')
 
